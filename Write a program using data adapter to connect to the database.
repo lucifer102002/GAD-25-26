@@ -1,0 +1,17 @@
+Imports System.Data 
+Imports System.Data.OleDb 
+Public Class Form1 
+Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load 
+Dim conn As New OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data " & 
+"Source=C:\Users\Suresh\Documents\Visual Studio 2012 \ Projects \ Datagrid \  
+stud.mdb")         
+Conn.Open() 
+Dim cmd As New OleDbCommand("Select * From Marks", conn) 
+Dim da As New OleDbDataAdapter(cmd) 
+Dim ds As New DataSet 
+da.Fill(ds, "Marks") 
+DataGrid1.CaptionText = "marks" 
+DataGrid1.DataSource = ds 
+DataGrid1.DataMember = "marks" 
+End Sub 
+End Class 
