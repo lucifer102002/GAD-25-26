@@ -1,0 +1,33 @@
+Imports System.Data.OleDb 
+Public Class Form1 
+Dim con As OleDbConnection 
+Dim ds As New DataSet 
+Dim cmd As OleDbCommand 
+Dim da As OleDbDataAdapter 
+Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load  
+Me.StudentTableAdapter.Fill(Me.Db1DataSet.student) 
+con = New OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data 
+Source=C:\Users\Suresh\Documents\Visual Studio 2012\Projects\Nav2\db1.mdb") 
+con.Open() 
+cmd = New OleDbCommand("Select * From student", con) 
+da = New OleDbDataAdapter(cmd) 
+da.Fill(ds, "student") 
+Me.TextBox1.DataBindings.Add("text", ds, "student.RollNo") 
+Me.TextBox2.DataBindings.Add("text", ds, "student.Name") 
+Me.TextBox3.DataBindings.Add("text", ds, "student.Marks") 
+End Sub 
+Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click 
+Me.BindingContext(ds, "student").Position = 0 
+End Sub 
+Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click 
+Me.BindingContext(ds, "student").Position = Me.BindingContext(ds, 
+"student").Position + 1 
+End Sub 
+Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click 
+Me.BindingContext(ds, "student").Position = Me.BindingContext(ds, 
+"student").Position - 1 
+End Sub 
+Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click 
+Me.BindingContext(ds, "student").Position=Me.BindingContext(ds,"student").Count-1 
+End Sub 
+End Class 
