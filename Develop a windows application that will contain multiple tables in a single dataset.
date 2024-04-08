@@ -1,0 +1,27 @@
+Imports System.Data.OleDb 
+Public Class Form1 
+Dim con As OleDbConnection 
+Dim ds As New DataSet 
+Dim cmd As OleDbCommand 
+Dim da As OleDbDataAdapter 
+Private Sub Button1_Click(sender As Object, e As EventArgs) Handles 
+Button1.Click 
+Dim con As New OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data 
+Source=C:\Users\Suresh\Documents\Visual Studio 2012\Projects\Multiple 
+Table\db1.mdb") 
+con.Open() 
+Dim cmd1 As New OleDbCommand("Select * From student", con) 
+Dim cmd2 As New OleDbCommand("Select * From subjects", con) 
+Dim da1 As New OleDbDataAdapter(cmd1) 
+Dim da2 As New OleDbDataAdapter(cmd2) 
+Dim ds As New DataSet 
+DataGrid1.CaptionText = "Student Record" 
+DataGrid2.CaptionText = "Subject Details" 
+da1.Fill(ds, "student") 
+da2.Fill(ds, "subjects") 
+DataGrid1.DataSource = ds 
+DataGrid1.DataMember = "student" 
+DataGrid2.DataSource = ds 
+DataGrid2.DataMember = "subjects" 
+End Sub 
+End Class 
